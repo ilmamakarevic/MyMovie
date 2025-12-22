@@ -1,55 +1,65 @@
 using System.Threading.Tasks;
-using MyMovie.Application;
+using Microsoft.EntityFrameworkCore;
+using MyMovie.Application.Interfaces;
 using MyMovie.Domain.Entities;
-using MyMovie.Domain.Interfaces;
 
 namespace MyMovie.Infrastructure.Repositories
 {
     public class MovieSqlRepository : IMovieRepository
     {
         private readonly MoviesDbContext _moviesDbContext;
-
         public MovieSqlRepository(MoviesDbContext moviesDbContext)
         {
             _moviesDbContext = moviesDbContext;
         }
 
-        public MovieEntity GetSingleById(int id)
+        public async Task AddAsync(MovieEntity item)
         {
-          return _moviesDbContext.Movies.FirstOrDefault(x => x.Id == id);   
+            await _moviesDbContext.Movies.AddAsync(item);
         }
 
-        public void Add(MovieEntity item)
+        public async Task<int> CountAsync()
         {
-            _moviesDbContext.Movies.Add(item);
-        }
-        public MovieEntity Update(int id, MovieEntity item)
-        {
-            _moviesDbContext.Movies.Update(item);
-            return item;
+            return await _moviesDbContext.Movies.CountAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            MovieEntity movieItem = GetSingleById(id);
-            _moviesDbContext.Movies.Remove(movieItem);
-
+            var movie = await GetByIdAsync(id);
+            if (movie != null)
+            {
+                _moviesDbContext.Movies.Remove(movie);
+            }
         }
 
-        // public ICollection<MovieEntity> GetRandomMovie()
-        // {
-        //     
-        // }
-
-        public int Count()
+        public async Task<List<MovieEntity>> GetAllAsync()
         {
-            return _moviesDbContext.Movies.Count();
-        }
-        public bool Save()
-        {
-            return _moviesDbContext.SaveChanges()>=0;
+            return await _moviesDbContext.Movies.ToListAsync();
         }
 
-        
+        public async Task<MovieEntity> GetByIdAsync(int id)
+        {
+            return await _moviesDbContext.Movies.FindAsync(id);
+        }
+
+        public async Task<bool> SaveAsync()
+        {
+            return await _moviesDbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<MovieEntity> UpdateAsync(int id, MovieEntity item)
+        {
+            var existingMovie = await GetByIdAsync(id);
+            if (existingMovie != null)
+            {
+                existingMovie.Title = item.Title;
+                existingMovie.Overview = item.Overview;
+                existingMovie.PosterPath = item.PosterPath;
+                existingMovie.ReleaseDate = item.ReleaseDate;
+                
+                _moviesDbContext.Movies.Update(existingMovie);
+            }
+            return existingMovie;
+        }
     }
 }
