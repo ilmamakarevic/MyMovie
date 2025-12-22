@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MyMovie.Domain.Interfaces;
 using MyMovie.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,10 @@ builder.Services.AddDbContext<MoviesDbContext>(options=>
 options.UseSqlServer( //koristim SQL server kao bazu podataka
     builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("MyMovie.Infrastructure"))); //migracije su u MyFood.Infrastructure
+
+builder.Services.AddScoped<IMovieRepository, MovieSqlRepository>();
+
+
 
 var app = builder.Build();
 
