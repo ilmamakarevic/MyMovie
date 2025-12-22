@@ -1,9 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using MyMovie.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<MoviesDbContext>(options=>
+options.UseSqlServer( //koristim SQL server kao bazu podataka
+    builder.Configuration.GetConnectionString("DefaultConnection"),
+    b => b.MigrationsAssembly("MyMovie.Infrastructure"))); //migracije su u MyFood.Infrastructure
 
 var app = builder.Build();
 
