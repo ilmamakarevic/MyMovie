@@ -1,13 +1,13 @@
 # MyMovie
 
 ## 1. Project Overview
-**MyMovie** je backend aplikacija izrađena u .NET 8 koristeći **Clean Architecture**.  
-Cilj projekta je prikupljanje i čuvanje podataka o filmovima iz **TMDB API-ja** u SQL Server bazu.  
+**MyMovie** is a web application made with .NET 8 (Clean Architecture) and React for frontend.
+The goal of the project is to collect and store movie data from the TMDB API in a SQL Server database.
 
-**Tehnologije:**
+**Technologies:**
 - .NET 8
 - C#  
-- EF Core (Code First)  
+- EF Core 
 - SQL Server (Docker)
 - TMDB API
 - Clean Architecture (API, Application, Infrastructure, Domain)
@@ -15,20 +15,17 @@ Cilj projekta je prikupljanje i čuvanje podataka o filmovima iz **TMDB API-ja**
 ---
 
 ## 2. Architecture
-
-Projekt koristi **Clean Architecture** sa sljedećim slojevima:
 - MyMovie.API → Endpoints / Controllers
 - MyMovie.Application → Business logic / Services / DTOs
 - MyMovie.Domain → Entities / Interfaces
 - MyMovie.Infrastructure → Database access / Repositories / External API services
 
 ## 3. Database
-
-SQL Server je pokrenut u Dockeru
+SQL Server is running on Docker
 DbContext: MoviesAppContext
-Konekcija: appsettings.json + Program.cs
+Connection: appsettings.json + Program.cs
 
-### Migracije
+### Migrations
 dotnet ef migrations add InitialCreate -p MyMovie.Infrastructure -s MyMovie.Api
 dotnet ef database update -p MyMovie.Infrastructure -s MyMovie.Api
 
