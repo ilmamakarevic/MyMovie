@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/Dashboard" element={<Dashboard />} />
+          {/* <Route path="/MyWatchlist" element={<Navbar />}></Route> */}
         </Routes>
       </Router>
         

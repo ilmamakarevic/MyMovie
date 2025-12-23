@@ -56,6 +56,7 @@ namespace MyMovie.Infrastructure.Repositories
                 existingMovie.Overview = item.Overview;
                 existingMovie.PosterPath = item.PosterPath;
                 existingMovie.ReleaseDate = item.ReleaseDate;
+                existingMovie.VoteAverage = item.VoteAverage;
                 
                 _moviesDbContext.Movies.Update(existingMovie);
             }

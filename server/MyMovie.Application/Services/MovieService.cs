@@ -250,7 +250,8 @@ namespace MyMovie.Application.Services
                 Title = entity.Title,
                 Overview = entity.Overview,
                 PosterPath = entity.PosterPath,
-                ReleaseDate = entity.ReleaseDate
+                ReleaseDate = entity.ReleaseDate,
+                VoteAverage = entity.VoteAverage
             };
         }
         private MovieEntity MapToEntity(MovieDto dto)
@@ -261,7 +262,8 @@ namespace MyMovie.Application.Services
                 Title = dto.Title,
                 Overview = dto.Overview,
                 PosterPath = dto.PosterPath,
-                ReleaseDate = dto.ReleaseDate
+                ReleaseDate = dto.ReleaseDate,
+                VoteAverage = dto.VoteAverage
             };
         }
 
