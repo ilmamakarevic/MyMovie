@@ -65,11 +65,16 @@
   background-color: transparent;
 }
 
-.navbar-item {
+.navbar-item a{
+  text-decoration: none;
+  color: #ccc;
   position: relative; 
   cursor: pointer;
 }
 
+.navbar-item a:hover{
+  color: #ff7300;
+}
 
 .navbar-item button, .navbar-item {
   background: none;

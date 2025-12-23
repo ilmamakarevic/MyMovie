@@ -1,5 +1,7 @@
 import React from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
+import Dashboard from '../../pages/Dashboard';
 import { RiAccountPinCircleFill } from "react-icons/ri";
 
 const Navbar = () => {
@@ -13,9 +15,9 @@ const Navbar = () => {
             <ul className='navbar-list'>
 
                 <h1 className='heading-name'>MyMovie</h1>
-
-                <li className='navbar-item'>Dashboard</li>
-
+                <li className='navbar-item'>
+                    <Link to="/dashboard">Dashboard</Link>
+                </li>
                 <li className='navbar-item'>
                     <button aria-expanded="false">Movies</button>
                     <ul className="sub-menu" aria-label="Apps">
