@@ -89,11 +89,9 @@ const MovieRow = ({ title, url }) => {
 
             if (response.ok) {
                 setIsOnWatchlist(true);
-                alert("✓ Dodano na watchlist!");
             } else {
                 const errorText = await response.text();
                 if (errorText.includes("already exists")) {
-                    alert("Film je već na watchlisti!");
                     setIsOnWatchlist(true);
                 } else {
                     alert("Greška pri dodavanju.");
