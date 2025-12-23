@@ -21,7 +21,13 @@ options.UseSqlServer( //koristim SQL server kao bazu podataka
 
 builder.Services.AddScoped<IMovieRepository, MovieSqlRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+
+builder.Services.AddScoped<ITvShowsRepository, TvShowsSqlRepository>();
+builder.Services.AddScoped<ITvShowService, TvShowsService>();
+
 builder.Services.AddHttpClient<IMovieExternalService, TmdbService>();
+
+
 
 // CORS za frontend
 builder.Services.AddCors(options =>

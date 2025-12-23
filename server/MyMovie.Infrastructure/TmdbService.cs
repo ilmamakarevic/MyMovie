@@ -59,6 +59,24 @@ public class TmdbService : IMovieExternalService
         return response.Results.Select(MapToDto).ToList();
     }
 
+    public async Task<List<ShowDto>> GetPopularTvShowsAsync(int page = 1)
+    {
+        var response = await _httpClient.GetFromJsonAsync<TmdbTvResponse>(
+            $"tv/popular?api_key={_apiKey}&language=en-US&page={page}");
+
+        if (response?.Results == null) return new List<ShowDto>();
+
+        return response.Results.Select(item => new ShowDto
+        {
+            Id = item.Id,
+            Name = item.Name,
+            Overview = item.Overview,
+            PosterPath = item.PosterPath,
+            VoteAverage = item.VoteAverage,
+            FirstAirDate = DateTime.TryParse(item.FirstAirDate, out var date) ? date : null
+        }).ToList();
+    }
+
     // Pomoćna metoda za mapiranje unutar TmdbService
     private MovieDto MapToDto(TmdbItem item) => new MovieDto
     {
@@ -66,9 +84,11 @@ public class TmdbService : IMovieExternalService
         Title = item.Title,
         Overview = item.Overview,
         PosterPath = item.PosterPath,
-        VoteAverage = item.VoteAverage, // SADA ĆE RADITI
+        VoteAverage = item.VoteAverage, 
         ReleaseDate = DateTime.TryParse(item.ReleaseDate, out var date) ? date : null
     };
+    
+
 
     // Pomoćne klase za automatsku deserializaciju
     public class TmdbMovieResponse
@@ -94,7 +114,34 @@ public class TmdbService : IMovieExternalService
         [JsonPropertyName("release_date")]
         public string? ReleaseDate { get; set; }
 
-        [JsonPropertyName("vote_average")] // KLJUČNO: Mapira TMDB ocjenu
+        [JsonPropertyName("vote_average")] 
         public double VoteAverage { get; set; }
     }
+}
+
+public class TmdbTvResponse
+{
+    [JsonPropertyName("results")]
+    public List<TmdbTvItem> Results { get; set; } = new();
+}
+
+public class TmdbTvItem
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("name")] 
+    public string? Name { get; set; }
+
+    [JsonPropertyName("overview")]
+    public string? Overview { get; set; }
+
+    [JsonPropertyName("poster_path")]
+    public string? PosterPath { get; set; }
+
+    [JsonPropertyName("first_air_date")] 
+    public string? FirstAirDate { get; set; }
+
+    [JsonPropertyName("vote_average")]
+    public double VoteAverage { get; set; }
 }

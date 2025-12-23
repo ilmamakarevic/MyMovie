@@ -9,6 +9,7 @@ namespace MyMovie.Infrastructure.Repositories
          public MoviesDbContext(DbContextOptions<MoviesDbContext> options) : base(options) { }
 
          public DbSet<MovieEntity> Movies { get; set; }
+         public DbSet<ShowsEntity> TvShows { get; set; } 
 
           protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,7 +38,28 @@ namespace MyMovie.Infrastructure.Repositories
                 // Kreiranje indexa za brže pretrage po TMDB ID-u
                 entity.HasIndex(e => e.TmdbId)
                     .IsUnique(false);
-            });
+            }
+            );
+
+            modelBuilder.Entity<ShowsEntity>(entity =>
+{
+    entity.HasKey(e => e.Id);
+    
+    entity.Property(e => e.Name) 
+        .IsRequired()
+        .HasMaxLength(200);
+    
+    entity.Property(e => e.Overview)
+        .HasMaxLength(2000);
+    
+    entity.Property(e => e.PosterPath)
+        .HasMaxLength(500);
+    
+    entity.Property(e => e.TmdbId)
+        .IsRequired(false);
+
+    entity.HasIndex(e => e.TmdbId);
+});
         }
         
     }
