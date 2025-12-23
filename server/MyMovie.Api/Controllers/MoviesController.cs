@@ -132,8 +132,6 @@ namespace MyMovie.Api.Controllers
             var movies = await _movieService.GetPopularMoviesAsync(page);
             return Ok(movies);
         }
-
-
         
         /// <summary>
         /// Get movie details from TMDB (without saving)
