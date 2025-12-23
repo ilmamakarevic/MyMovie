@@ -1,0 +1,98 @@
+.movie-row {
+    margin: 20px 0;
+    color: white;
+    background-color: rgb(47, 47, 47);
+}
+
+.movie-row h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px; 
+    margin-left: 40px;
+    margin-top: 40px;
+    font-weight: 600;
+    color: rgb(221, 221, 221);
+}
+
+.movie-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-top: 5px;   
+    padding-bottom: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+/* Sakrivanje scrollbara */
+.movie-list::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-card {
+    min-width: 200px;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.movie-card:hover {
+    transform: scale(1.08);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.movie-info {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.row-wrapper {
+    position: relative; /* Da bi strelice mogle biti unutar */
+    display: flex;
+    align-items: center;
+}
+
+/* Stil za strelice */
+.handle {
+    position: absolute;
+    z-index: 100;
+    height: 100%;
+    width: 100px;
+    background-color: rgba(47, 47, 47, 0.6);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    opacity: 0; /* Sakriveno po defaultu */
+    transition: opacity 0.3s ease;
+}
+
+.handle-left { 
+    left: 0; 
+ }
+.handle-right { 
+    right: 0; 
+    
+}
+
+/* Pokazuje strelice na hover cijelog reda */
+.row-wrapper:hover .handle {
+    opacity: 1;
+}
+
+.handle:hover {
+    background: rgba(47, 47, 47, 0.8);
+    color: #ff7300;
+}
+
+/* Osiguraj da movie-list ne skroluje ruzno */
+.movie-list {
+    scroll-behavior: smooth;
+}
