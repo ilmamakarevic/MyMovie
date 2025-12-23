@@ -1,0 +1,130 @@
+.watchlist-page {
+    min-height: 100vh;
+    padding: 40px;
+    background-color: rgb(47, 47, 47);
+    color: white;
+}
+
+.watchlist-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: rgb(221, 221, 221);
+    font-weight: 600;
+}
+
+.watchlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.watchlist-page .movie-card {
+    position: relative;
+    transition: transform 0.3s ease;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.watchlist-page .movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.watchlist-page .movie-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.movie-info {
+    padding: 15px;
+    background-color: #2c2c2c;
+}
+
+.movie-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: rgb(221, 221, 221);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.movie-rating {
+    font-size: 0.9rem;
+    color: #46d369;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.movie-date {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.remove-button {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.remove-button:hover {
+    background-color: #c82333;
+}
+
+.empty-watchlist {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-watchlist p:first-child {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgb(221, 221, 221);
+    margin-bottom: 10px;
+}
+
+.empty-watchlist p:last-child {
+    font-size: 1.1rem;
+}
+
+/* Stil za dugme "Na watchlisti" */
+.add-to-watchlist.on-watchlist {
+    background-color: #28a745;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.add-to-watchlist.on-watchlist:hover {
+    background-color: #28a745;
+}
+
+/* Responsivnost */
+@media (max-width: 768px) {
+    .watchlist-page {
+        padding: 20px;
+    }
+
+    .watchlist-page h1 {
+        font-size: 2rem;
+    }
+
+    .watchlist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+}

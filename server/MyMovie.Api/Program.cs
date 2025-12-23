@@ -27,6 +27,8 @@ builder.Services.AddScoped<ITvShowService, TvShowsService>();
 
 builder.Services.AddHttpClient<IMovieExternalService, TmdbService>();
 
+builder.Services.AddScoped<IWatchlistService, WatchlistService>();
+builder.Services.AddScoped<IWatchlistRepository, WatchlistRepository>();
 
 
 // CORS za frontend

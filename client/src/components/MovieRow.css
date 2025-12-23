@@ -92,7 +92,111 @@
     color: #ff7300;
 }
 
-/* Osiguraj da movie-list ne skroluje ruzno */
+/* smooth scroll za movie list */
 .movie-list {
     scroll-behavior: smooth;
+}
+
+/* Overlay - zatamnjena pozadina)*/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* Sadržaj popupa */
+.modal-content {
+    background: #181818;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-body {
+    display: flex;
+}
+
+.modal-body img {
+    width: 40%;
+    object-fit: cover;
+}
+
+.modal-info {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-rating {
+    color: #46d369;
+    font-weight: bold;
+}
+
+.modal-overview {
+    line-height: 1.5;
+    color: #ccc;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* modal responsiveness za mobitele */
+@media (max-width: 768px) {
+    .modal-body {
+        flex-direction: column;
+    }
+    .modal-body img {
+        width: 100%;
+        height: 250px;
+    }
+}
+
+.modal-buttons {
+    display: flex;       
+    gap: 15px;          
+    margin-top: 10px;   
+}
+
+.play-button {
+    display: flex;
+    background-color: #ff7300;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.play-button:hover{
+    background-color: #fc9c4e;
+    transition: background-color 0.2s ease;
 }

@@ -10,6 +10,7 @@ namespace MyMovie.Infrastructure.Repositories
 
          public DbSet<MovieEntity> Movies { get; set; }
          public DbSet<ShowsEntity> TvShows { get; set; } 
+         public DbSet<WatchlistItemEntity> WatchlistItems { get; set; }
 
           protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -60,6 +61,38 @@ namespace MyMovie.Infrastructure.Repositories
 
     entity.HasIndex(e => e.TmdbId);
 });
+
+modelBuilder.Entity<WatchlistItemEntity>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                
+                entity.Property(e => e.Title)
+                    .HasMaxLength(200);
+                
+                entity.Property(e => e.Name)
+                    .HasMaxLength(200);
+                
+                entity.Property(e => e.PosterPath)
+                    .IsRequired()
+                    .HasMaxLength(500);
+                
+                entity.Property(e => e.Overview)
+                    .HasMaxLength(2000);
+                
+                entity.Property(e => e.AddedDate)
+                    .IsRequired();
+
+                entity.Property(e => e.Rating)
+                    .IsRequired(false);
+
+                // Index za brže pretrage i sprečavanje duplikata
+                entity.HasIndex(e => new { e.TmdbId, e.Type })
+                    .IsUnique();
+            });
         }
         
     }
