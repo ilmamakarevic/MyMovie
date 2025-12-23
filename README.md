@@ -16,8 +16,8 @@ The goal of the project is to collect and store movie data from the TMDB API in 
 
 ## 2. Architecture
 - MyMovie.API → Endpoints / Controllers
-- MyMovie.Application → Business logic / Services / DTOs
-- MyMovie.Domain → Entities / Interfaces
+- MyMovie.Application → DTOs / Interfaces / Services / 
+- MyMovie.Domain → Entities 
 - MyMovie.Infrastructure → Database access / Repositories / External API services
 
 ## 3. Database
