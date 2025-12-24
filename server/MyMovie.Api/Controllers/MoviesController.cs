@@ -153,25 +153,6 @@ namespace MyMovie.Api.Controllers
         }
 
         /// <summary>
-        /// Import movie from TMDB and save to database
-        /// </summary>
-        [HttpPost("import/{tmdbId}")]
-        [ProducesResponseType(typeof(MovieDto), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<MovieDto>> ImportFromTmdb(int tmdbId)
-        {
-            try
-            {
-                var movie = await _movieService.ImportMovieFromTmdbAsync(tmdbId);
-                return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Get total count of movies in database
         /// </summary>
         [HttpGet("count")]

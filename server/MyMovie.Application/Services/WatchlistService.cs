@@ -28,8 +28,8 @@ namespace MyMovie.Application.Services
             var item = new WatchlistItemEntity
             {
                 TmdbId = dto.TmdbId,
-                Title = dto.Title,
-                Name = dto.Name,
+                Name = dto.Type == "tv" ? dto.Name : null,
+                Title = dto.Type == "movie" ? dto.Title : null,
                 PosterPath = dto.PosterPath,
                 Type = dto.Type,
                 Rating = dto.Rating,

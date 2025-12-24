@@ -90,7 +90,7 @@ public class TmdbService : IMovieExternalService
     
 
 
-    // Pomoćne klase za automatsku deserializaciju
+
     public class TmdbMovieResponse
     {
         [JsonPropertyName("results")]

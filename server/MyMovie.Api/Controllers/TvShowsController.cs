@@ -29,18 +29,13 @@ namespace MyMovie.Api.Controllers
             return Ok(shows);
         }
 
-        [HttpPost("import/{tmdbId}")]
-        public async Task<ActionResult<ShowDto>> Import(int tmdbId)
-        {
-            var show = await _tvShowService.ImportShowFromTmdbAsync(tmdbId);
-            return Ok(show);
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _tvShowService.DeleteShowAsync(id);
             return NoContent();
         }
+
+        
     }
 }
