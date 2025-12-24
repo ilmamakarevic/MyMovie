@@ -93,7 +93,6 @@ const Navbar = () => {
         <li className='navbar-item'>
           <button type="button">Movies</button>
           <ul className="sub-menu">
-            <li><Link to="/movies/popular">Popular</Link></li>
             <li><Link to="/movies/top-rated">Top rated</Link></li>
             <li><Link to="/movies/upcoming">Coming soon</Link></li>
           </ul>
@@ -103,7 +102,6 @@ const Navbar = () => {
         <li className='navbar-item'>
           <button type="button">TV Shows</button>
           <ul className="sub-menu">
-            <li><Link to="/tv/popular">Popular</Link></li>
             <li><Link to="/tv/top-rated">Top rated</Link></li>
             <li><Link to="/tv/upcoming">Coming soon</Link></li>
           </ul>
@@ -168,13 +166,13 @@ const Navbar = () => {
                   ))}
                 </>
               ) : (
-                <div className='no-results'>Nema rezultata</div>
+                <div className='no-results'>No Results</div>
               )}
             </div>
           )}
         </div>
 
-        <RiAccountPinCircleFill className="profile-icon" />
+        <Link to="#"><RiAccountPinCircleFill className="profile-icon" /></Link>
       </div>
     </nav>
   );
