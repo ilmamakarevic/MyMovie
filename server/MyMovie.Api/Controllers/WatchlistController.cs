@@ -19,9 +19,9 @@ namespace MyMovie.Api.Controllers
         /// Dohvati sve stavke s watchliste
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<List<WatchlistItemDto>>> GetWatchlist()
+        public async Task<ActionResult<List<WatchlistItemDto>>> GetWatchlist([FromQuery] string userId)
         {
-            var items = await _watchlistService.GetWatchlistAsync();
+            var items = await _watchlistService.GetWatchlistAsync(userId);
             
             if (items == null || !items.Any())
                 return NoContent();
@@ -46,6 +46,8 @@ namespace MyMovie.Api.Controllers
             }
         }
 
+        
+
         /// <summary>
         /// Ukloni stavku s watchliste
         /// </summary>
@@ -64,10 +66,12 @@ namespace MyMovie.Api.Controllers
         /// Provjeri da li je film/serija na watchlisti
         /// </summary>
         [HttpGet("check/{tmdbId}")]
-        public async Task<ActionResult<bool>> IsOnWatchlist(int tmdbId, [FromQuery] string type)
+        public async Task<ActionResult<bool>> IsOnWatchlist(int tmdbId, [FromQuery] string type, [FromQuery] string userId)
         {
-            var isOnList = await _watchlistService.IsOnWatchlistAsync(tmdbId, type);
-            return Ok(isOnList);
+            var items = await _watchlistService.IsOnWatchlistAsync(tmdbId, type, userId);
+
+            return Ok(items);
         }
     }
+    
 }

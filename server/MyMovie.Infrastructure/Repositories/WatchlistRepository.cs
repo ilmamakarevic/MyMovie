@@ -20,6 +20,11 @@ namespace MyMovie.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<WatchlistItemEntity>> GetAllByUserIdAsync(string userId)
+        {
+            return await _context.WatchlistItems.Where(x => x.FirebaseUserId == userId).ToListAsync();
+        }
+
         public async Task<WatchlistItemEntity> AddAsync(WatchlistItemEntity item)
         {
             _context.WatchlistItems.Add(item);
@@ -37,10 +42,11 @@ namespace MyMovie.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<bool> ExistsAsync(int tmdbId, string type)
+        public async Task<bool> ExistsAsync(int tmdbId, string type, string userId)
         {
-            return await _context.WatchlistItems
-                .AnyAsync(x => x.TmdbId == tmdbId && x.Type == type);
+            return await _context.WatchlistItems.AnyAsync(x => x.TmdbId == tmdbId && x.Type == type && x.FirebaseUserId == userId);
         }
+
+
     }
 }

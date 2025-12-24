@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'; 
 import { FaChevronLeft, FaChevronRight, FaTimes, FaStar } from 'react-icons/fa'; 
+import { auth } from "../firebase";
 import './MovieRow.css';
 
 const MovieRow = ({ title, url }) => {
@@ -33,23 +34,27 @@ const MovieRow = ({ title, url }) => {
 
     // Provjeri da li je film/serija na watchlisti
     const checkWatchlistStatus = async (movie) => {
-        try {
-            const type = movie.title ? 'movie' : 'tv';
-            const tmdbId = movie.tmdbId || movie.id;
-            
-            const response = await fetch(
-                `http://localhost:5081/api/Watchlist/check/${tmdbId}?type=${type}`
-            );
-            
-            if (response.ok) {
-                const isOnList = await response.json();
-                setIsOnWatchlist(isOnList);
-            }
-        } catch (error) {
-            console.error("Error checking watchlist:", error);
-            setIsOnWatchlist(false);
+    const user = auth.currentUser;
+    if (!user) return; // Ako nitko nije prijavljen, ne provjeravaj ništa
+
+    try {
+        const type = movie.title ? 'movie' : 'tv';
+        const tmdbId = movie.tmdbId || movie.id;
+        
+        // Dodajemo userId u query parametre kako bi backend znao koga provjerava
+        const response = await fetch(
+            `http://localhost:5081/api/Watchlist/check/${tmdbId}?type=${type}&userId=${user.uid}`
+        );
+        
+        if (response.ok) {
+            const isOnList = await response.json();
+            setIsOnWatchlist(isOnList);
         }
-    };
+    } catch (error) {
+        console.error("Error checking watchlist:", error);
+        setIsOnWatchlist(false);
+    }
+};
 
     const handleMovieClick = async (movie) => {
         setSelectedMovie(movie);
@@ -65,43 +70,48 @@ const MovieRow = ({ title, url }) => {
     };
 
     const addToWatchlist = async () => {
-        if (!selectedMovie) return;
+    if (!selectedMovie) return;
 
-        try {
-            const type = selectedMovie.title ? 'movie' : 'tv';
-            const tmdbId = selectedMovie.tmdbId || selectedMovie.id;
+    // 1. Dohvati trenutno prijavljenog korisnika
+    const user = auth.currentUser;
 
-            const response = await fetch('http://localhost:5081/api/Watchlist', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    tmdbId: tmdbId,
-                    title: selectedMovie.title || null,
-                    name: selectedMovie.name || null,
-                    posterPath: selectedMovie.posterPath,
-                    type: type,
-                    rating: selectedMovie.voteAverage,
-                    overview: selectedMovie.overview
-                }),
-            });
+    if (!user) {
+        alert("Morate biti prijavljeni da biste dodali film na listu!");
+        return;
+    }
 
-            if (response.ok) {
-                setIsOnWatchlist(true);
-            } else {
-                const errorText = await response.text();
-                if (errorText.includes("already exists")) {
-                    setIsOnWatchlist(true);
-                } else {
-                    alert("Greška pri dodavanju.");
-                }
-            }
-        } catch (error) {
-            console.error("Network error:", error);
-            alert("Greška pri dodavanju na watchlist");
+    try {
+        const type = selectedMovie.title ? 'movie' : 'tv';
+        const tmdbId = selectedMovie.tmdbId || selectedMovie.id;
+
+        const response = await fetch('http://localhost:5081/api/Watchlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                tmdbId: tmdbId,
+                firebaseUserId: user.uid, // DODANO: Šaljemo UID korisnika
+                title: selectedMovie.title || null,
+                name: selectedMovie.name || null,
+                posterPath: selectedMovie.posterPath,
+                type: type,
+                rating: selectedMovie.voteAverage,
+                overview: selectedMovie.overview
+            }),
+        });
+
+        if (response.ok) {
+            setIsOnWatchlist(true);
+        } else {
+            const errorText = await response.text();
+            alert("Greška pri dodavanju: " + errorText);
         }
-    };
+    } catch (error) {
+        console.error("Network error:", error);
+        alert("Greška pri povezivanju s poslužiteljem.");
+    }
+};
 
     return (
         <div className="movie-row">

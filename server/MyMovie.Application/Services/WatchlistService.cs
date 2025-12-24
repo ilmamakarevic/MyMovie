@@ -13,21 +13,25 @@ namespace MyMovie.Application.Services
             _repository = repository;
         }
 
-        public async Task<List<WatchlistItemDto>> GetWatchlistAsync()
+        // 1. Dodaj parametar userId
+        public async Task<List<WatchlistItemDto>> GetWatchlistAsync(string userId)
         {
-            var items = await _repository.GetAllAsync();
+            // Pozivamo novu metodu koju smo dodali u Repository
+            var items = await _repository.GetAllByUserIdAsync(userId); 
             return items.Select(MapToDto).ToList();
         }
 
         public async Task<WatchlistItemDto> AddToWatchlistAsync(AddToWatchlistDto dto)
         {
-            var exists = await _repository.ExistsAsync(dto.TmdbId, dto.Type);
+            // 2. Proslijedi FirebaseUserId iz DTO-a u provjeru postojanja
+            var exists = await _repository.ExistsAsync(dto.TmdbId, dto.Type, dto.FirebaseUserId);
             if (exists)
-                throw new InvalidOperationException("Item already exists on watchlist");
+                throw new InvalidOperationException("Item already exists on your watchlist");
 
             var item = new WatchlistItemEntity
             {
                 TmdbId = dto.TmdbId,
+                FirebaseUserId = dto.FirebaseUserId, // 3. OBAVEZNO spremi ID korisnika u Entity
                 Name = dto.Type == "tv" ? dto.Name : null,
                 Title = dto.Type == "movie" ? dto.Title : null,
                 PosterPath = dto.PosterPath,
@@ -46,9 +50,11 @@ namespace MyMovie.Application.Services
             return await _repository.RemoveAsync(id);
         }
 
-        public async Task<bool> IsOnWatchlistAsync(int tmdbId, string type)
+        // 4. Dodaj parametar userId
+        public async Task<bool> IsOnWatchlistAsync(int tmdbId, string type, string userId)
         {
-            return await _repository.ExistsAsync(tmdbId, type);
+            // Provjeri postojanje za točno tog korisnika
+            return await _repository.ExistsAsync(tmdbId, type, userId);
         }
 
         private WatchlistItemDto MapToDto(WatchlistItemEntity item)

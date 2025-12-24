@@ -7,6 +7,8 @@ namespace MyMovie.Application.Interfaces
         Task<List<WatchlistItemEntity>> GetAllAsync();
         Task<WatchlistItemEntity> AddAsync(WatchlistItemEntity item);
         Task<bool> RemoveAsync(int id);
-        Task<bool> ExistsAsync(int tmdbId, string type);
+        Task<bool> ExistsAsync(int tmdbId, string type, string userId);
+        Task<List<WatchlistItemEntity>> GetAllByUserIdAsync(string userId);
+
     }
 }

@@ -22,6 +22,7 @@ namespace MyMovie.Application.DTOs
     {
         public int TmdbId { get; set; }
         public string? Title { get; set; }
+        public string FirebaseUserId { get; set; }
         public string? Name { get; set; }
         public string? PosterPath { get; set; }
         public string? Type { get; set; } // "movie" ili "tv"
