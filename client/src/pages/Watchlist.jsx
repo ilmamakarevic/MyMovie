@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { auth } from "../firebase"; // Putanja do tvog firebase.js
 import './Watchlist.css';
 
 const Watchlist = () => {
@@ -6,18 +7,26 @@ const Watchlist = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchWatchlist();
+        // Pratimo promjenu stanja prijave da bismo znali UID korisnika
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                fetchWatchlist(user.uid); // Šaljemo UID funkciji
+            } else {
+                setLoading(false);
+            }
+        });
+
+        return () => unsubscribe();
     }, []);
 
-    const fetchWatchlist = async () => {
+    const fetchWatchlist = async (userId) => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:5081/api/Watchlist');
+            // DODALI SMO userId u URL (ovo je ključno za tvoj backend)
+            const response = await fetch(`http://localhost:5081/api/Watchlist?userId=${userId}`);
             
-            // Provjera: ako je status 204 (No Content) ili odgovor prazan
             if (response.status === 204) {
                 setMovies([]);
-                setLoading(false);
                 return;
             }
 
@@ -34,9 +43,7 @@ const Watchlist = () => {
     };
 
     const removeFromWatchlist = async (id, title) => {
-        if (!window.confirm(`Da li sigurno želite ukloniti "${title || 'ovaj item'}" sa watchliste?`)) {
-            return;
-        }
+        if (!window.confirm(`Da li sigurno želite ukloniti "${title}"?`)) return;
 
         try {
             const response = await fetch(`http://localhost:5081/api/Watchlist/${id}`, {
@@ -44,26 +51,17 @@ const Watchlist = () => {
             });
 
             if (response.ok || response.status === 204) {
-                // Ukloni iz state-a bez ponovnog fetch-a
                 setMovies(movies.filter(m => m.id !== id));
-                alert('✓ Uklonjeno sa watchliste!');
-            } else {
-                alert('Greška pri brisanju.');
             }
         } catch (error) {
-            console.error("Error removing from watchlist:", error);
-            alert('Greška pri brisanju sa watchliste');
+            console.error("Error removing:", error);
         }
     };
 
-    if (loading) {
-        return (
-            <div className="watchlist-page">
-                <h1>My Watchlist</h1>
-                <p>Učitavanje...</p>
-            </div>
-        );
-    }
+    if (loading) return <div className="watchlist-page"><h1>Učitavanje...</h1></div>;
+
+    // Ako korisnik uopće nije logiran
+    if (!auth.currentUser) return <div className="watchlist-page"><h1>Molimo prijavite se.</h1></div>;
 
     return (
         <div className="watchlist-page">
@@ -78,12 +76,6 @@ const Watchlist = () => {
                             />
                             <div className="movie-info">
                                 <p className="movie-title">{movie.title || movie.name}</p>
-                                {movie.rating && (
-                                    <p className="movie-rating">⭐ {movie.rating.toFixed(1)}</p>
-                                )}
-                                <p className="movie-date">
-                                    Dodano: {new Date(movie.addedDate).toLocaleDateString('hr-HR')}
-                                </p>
                                 <button 
                                     className="remove-button"
                                     onClick={() => removeFromWatchlist(movie.id, movie.title || movie.name)}
@@ -95,10 +87,7 @@ const Watchlist = () => {
                     ))}
                 </div>
             ) : (
-                <div className="empty-watchlist">
-                    <p>Vaša watchlist je prazna.</p>
-                    <p>Dodajte filmove i serije da ih pratite!</p>
-                </div>
+                <p>Vaša watchlist je prazna.</p>
             )}
         </div>
     );

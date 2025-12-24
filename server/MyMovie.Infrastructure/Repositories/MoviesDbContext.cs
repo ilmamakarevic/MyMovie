@@ -90,7 +90,7 @@ modelBuilder.Entity<WatchlistItemEntity>(entity =>
                     .IsRequired(false);
 
                 // Index za brže pretrage i sprečavanje duplikata
-                entity.HasIndex(e => new { e.TmdbId, e.Type })
+                entity.HasIndex(e => new { e.TmdbId, e.Type, e.FirebaseUserId })
                     .IsUnique();
             });
         }

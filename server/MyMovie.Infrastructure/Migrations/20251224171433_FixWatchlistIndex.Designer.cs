@@ -12,8 +12,8 @@ using MyMovie.Infrastructure.Repositories;
 namespace MyMovie.Infrastructure.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    [Migration("20251224163710_AddedFirebase")]
-    partial class AddedFirebase
+    [Migration("20251224171433_FixWatchlistIndex")]
+    partial class FixWatchlistIndex
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,7 +123,7 @@ namespace MyMovie.Infrastructure.Migrations
 
                     b.Property<string>("FirebaseUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200)
@@ -155,7 +155,7 @@ namespace MyMovie.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TmdbId", "Type")
+                    b.HasIndex("TmdbId", "Type", "FirebaseUserId")
                         .IsUnique();
 
                     b.ToTable("WatchlistItems");

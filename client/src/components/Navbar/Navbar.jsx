@@ -172,7 +172,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <Link to="#"><RiAccountPinCircleFill className="profile-icon" /></Link>
+        <Link to="/profile"><RiAccountPinCircleFill className="profile-icon" /></Link>
       </div>
     </nav>
   );

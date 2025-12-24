@@ -120,7 +120,7 @@ namespace MyMovie.Infrastructure.Migrations
 
                     b.Property<string>("FirebaseUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200)
@@ -152,7 +152,7 @@ namespace MyMovie.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TmdbId", "Type")
+                    b.HasIndex("TmdbId", "Type", "FirebaseUserId")
                         .IsUnique();
 
                     b.ToTable("WatchlistItems");
