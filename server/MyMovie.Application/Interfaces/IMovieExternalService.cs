@@ -9,5 +9,7 @@ namespace MyMovie.Application.Interfaces
         Task<List<MovieDto>> SearchMoviesAsync(string query);
         Task<List<MovieDto>> GetPopularMoviesAsync(int page = 1);
         Task<List<ShowDto>> GetPopularTvShowsAsync(int page = 1);
+        Task<List<ShowDto>> SearchTvShowsAsync(string query);
+
     }
 }

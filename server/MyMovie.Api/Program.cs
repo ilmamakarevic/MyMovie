@@ -57,8 +57,6 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowReact");
 
-app.UseCors("AllowAll");
-
 app.MapControllers(); 
 
 app.Run();

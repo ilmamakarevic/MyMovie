@@ -56,8 +56,6 @@ namespace MyMovie.Application.Services
             _logger.LogInformation("Započinjem uvoz serije sa TMDB ID: {TmdbId}", tmdbId);
 
             // 1. Povlačenje podataka sa TMDB
-            // Napomena: Idealno bi bilo imati metodu GetTvShowByIdAsync na TMDB servisu, 
-            // ali koristimo tvoju logiku pretrage kroz popularne
             var showsFromTmdb = await _tmdbService.GetPopularTvShowsAsync(1);
             var showDto = showsFromTmdb.FirstOrDefault(s => s.Id == tmdbId);
 
@@ -88,6 +86,24 @@ namespace MyMovie.Application.Services
             showDto.Id = entity.Id; // Postavljamo lokalni ID baze u DTO
             return showDto;
         }
+
+        public async Task<List<ShowDto>> SearchTvShowsAsync(string query)
+        {
+            _logger.LogInformation("Searching tv shows on TMDB with query: {Query}", query);
+            
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                // Bolje je vratiti praznu listu nego bacati Exception za prazan input
+                return new List<ShowDto>(); 
+            }
+
+            var shows = await _tmdbService.SearchTvShowsAsync(query);
+    
+            _logger.LogInformation("Found {Count} shows for query: {Query}", shows.Count, query);
+    
+            return shows; 
+        }
+
 
         private ShowDto MapToDto(ShowsEntity entity)
         {

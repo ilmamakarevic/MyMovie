@@ -70,8 +70,8 @@ const Navbar = () => {
     setSearchQuery('');
     setShowResults(false);
     setSearchResults([]);
-    // Možeš navigirati na detail stranicu ili otvoriti modal
-    // Za sada ćemo samo zatvoriti rezultate
+    
+    navigate(`/details/${item.type}/${item.id}`, { state: { movieData: item } });
   };
 
   const clearSearch = () => {

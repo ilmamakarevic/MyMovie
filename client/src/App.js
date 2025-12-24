@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 import { auth } from './firebase';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer'
 import Dashboard from './pages/Dashboard';
@@ -10,52 +10,51 @@ import Watchlist from './pages/Watchlist';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import SingleMovie from './pages/SingleMovie';
 
+// App.js - Zamijeni LayoutWrapper funkciju ovim:
 
-  function LayoutWrapper() {
+function LayoutWrapper() {
   const location = useLocation();
-  
-  // Provjerava je li trenutna putanja '/register'
   const isAuthPage = location.pathname === '/register' || location.pathname === '/login';
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Ova funkcija prati da li je korisnik ulogovan ili ne
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
-      setLoading(false); // Prestane s učitavanjem čim Firebase odgovori
+      setLoading(false);
     });
-
-    return () => unsubscribe(); // Očisti pretplatu
+    return () => unsubscribe();
   }, []);
 
-  if (loading) {
-    return <div>Učitavanje...</div>; 
+  if (loading) return <div className="loading">Učitavanje...</div>;
+
+  // GLAVNA PROMJENA: Ako korisnik nije ulogovan i nije na login/register, šalji ga na login
+  if (!user && !isAuthPage) {
+    return <Navigate to="/login" replace />;
   }
 
   return (
     <div className="app-container">
-
-      {/* navbar se prikazuje samo ako NISMO na auth stranici */}
       {!isAuthPage && <Navbar />}
       <main className="content">
-
         <Routes>
+          {/* Početna ruta sada direktno vodi na Dashboard ako je user tu */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/MyWatchlist" element={<Watchlist />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/details/:type/:id" element={<SingleMovie />} />
           
           <Route path="/register" element={<Register />} /> 
           <Route path="/login" element={<Login />} />  
+          
+          {/* Ako korisnik ukuca nepostojeću rutu */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-        {/* Footer se prikazuje samo ako NISMO na auth stranici */}
-        {!isAuthPage && <Footer />}
-        
-        
+      {!isAuthPage && <Footer />}
     </div>
   );
 }

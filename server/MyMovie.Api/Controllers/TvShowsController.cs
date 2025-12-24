@@ -29,6 +29,17 @@ namespace MyMovie.Api.Controllers
             return Ok(shows);
         }
 
+        [HttpGet("search")]
+        [ProducesResponseType(typeof(List<ShowDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<ShowDto>>> SearchTvShows([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return BadRequest("Search query cannot be empty");
+
+            var shows = await _tvShowService.SearchTvShowsAsync(query);
+            return Ok(shows);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

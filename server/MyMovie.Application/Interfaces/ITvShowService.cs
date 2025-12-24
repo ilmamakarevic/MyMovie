@@ -12,5 +12,6 @@ namespace MyMovie.Application.Interfaces
         // TMDB integracija
         Task<List<ShowDto>> GetPopularShowsAsync(int page = 1);
         Task<ShowDto> ImportShowFromTmdbAsync(int tmdbId);
+        Task<List<ShowDto>> SearchTvShowsAsync(string query);
     }
 }

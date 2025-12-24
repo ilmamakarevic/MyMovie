@@ -80,14 +80,14 @@ const Watchlist = () => {
                                     className="remove-button"
                                     onClick={() => removeFromWatchlist(movie.id, movie.title || movie.name)}
                                 >
-                                    ✕ Ukloni
+                                    ✕ Remove
                                 </button>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <p>Vaša watchlist je prazna.</p>
+                <p>Your watchlist is empty.</p>
             )}
         </div>
     );

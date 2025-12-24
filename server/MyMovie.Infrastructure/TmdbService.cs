@@ -77,6 +77,16 @@ public class TmdbService : IMovieExternalService
         }).ToList();
     }
 
+    public async Task<List<ShowDto>> SearchTvShowsAsync(string query)
+    {
+        var response = await _httpClient.GetFromJsonAsync<TmdbTvResponse>(
+            $"search/tv?api_key={_apiKey}&language=en-US&query={Uri.EscapeDataString(query)}");
+
+        if (response?.Results == null) return new List<ShowDto>();
+
+        return response.Results.Select(MapToShowDto).ToList();
+    }
+
     // Pomoćna metoda za mapiranje unutar TmdbService
     private MovieDto MapToDto(TmdbItem item) => new MovieDto
     {
@@ -87,8 +97,16 @@ public class TmdbService : IMovieExternalService
         VoteAverage = item.VoteAverage, 
         ReleaseDate = DateTime.TryParse(item.ReleaseDate, out var date) ? date : null
     };
-    
 
+    private ShowDto MapToShowDto(TmdbTvItem item) => new ShowDto
+    {
+        Id = item.Id,
+        Name = item.Name,
+        Overview = item.Overview,
+        PosterPath = item.PosterPath,
+        VoteAverage = item.VoteAverage,
+        FirstAirDate = DateTime.TryParse(item.FirstAirDate, out var date) ? date : null
+    };
 
 
     public class TmdbMovieResponse
