@@ -27,7 +27,7 @@ const Profile = () => {
 
     return (
         <div className="profile-container">
-            <h1>Moj Profil</h1>
+            <h1>My Profile</h1>
             <div className="profile-card">
                 <div className="profile-image">
                     {/* Generira inicijal korisnika ako nema sliku */}
@@ -35,11 +35,11 @@ const Profile = () => {
                 </div>
                 <div className="profile-info">
                     <p><strong>Email:</strong> {user.email}</p>
-                    <p><strong>Korisnički ID:</strong> <small>{user.uid}</small></p>
-                    <p><strong>Račun kreiran:</strong> {new Date(user.metadata.creationTime).toLocaleDateString()}</p>
+                    <p><strong>User ID:</strong> <small>{user.uid}</small></p>
+                    <p><strong>Account created:</strong> {new Date(user.metadata.creationTime).toLocaleDateString()}</p>
                 </div>
                 <button className="logout-button" onClick={handleLogout}>
-                    Odjavi se
+                    Log out
                 </button>
             </div>
         </div>

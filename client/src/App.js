@@ -15,7 +15,7 @@ import Profile from './pages/Profile';
   function LayoutWrapper() {
   const location = useLocation();
   
-  // Provjeravamo je li trenutna putanja '/register'
+  // Provjerava je li trenutna putanja '/register'
   const isAuthPage = location.pathname === '/register' || location.pathname === '/login';
 
   const [user, setUser] = useState(null);
@@ -36,10 +36,11 @@ import Profile from './pages/Profile';
   }
 
   return (
-    <div className="App">
+    <div className="app-container">
 
       {/* navbar se prikazuje samo ako NISMO na auth stranici */}
       {!isAuthPage && <Navbar />}
+      <main className="content">
 
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -50,7 +51,7 @@ import Profile from './pages/Profile';
           <Route path="/register" element={<Register />} /> 
           <Route path="/login" element={<Login />} />  
         </Routes>
-
+      </main>
         {/* Footer se prikazuje samo ako NISMO na auth stranici */}
         {!isAuthPage && <Footer />}
         

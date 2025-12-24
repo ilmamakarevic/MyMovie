@@ -1,3 +1,15 @@
-body{
-    background-color: rgb(47, 47, 47);
+html, body, #root {
+  background-color: rgb(47, 47, 47);
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1; /* GURA FOOTER NA DNO */
 }
