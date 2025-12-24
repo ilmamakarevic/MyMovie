@@ -5,6 +5,8 @@ import './Watchlist.css';
 const Watchlist = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [itemToDelete, setItemToDelete] = useState(null); // Pamti koji film brišemo
+    const [showModal, setShowModal] = useState(false);      // Kontroliše da li se popup vidi
 
     useEffect(() => {
         // Pratimo promjenu stanja prijave da bismo znali UID korisnika
@@ -42,6 +44,7 @@ const Watchlist = () => {
         }
     };
 
+    
     const removeFromWatchlist = async (id, title) => {
         if (!window.confirm(`Da li sigurno želite ukloniti "${title}"?`)) return;
 

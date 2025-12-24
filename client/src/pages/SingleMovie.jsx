@@ -111,7 +111,6 @@ const SingleMovie = () => {
 
             if (response.ok) {
                 setIsOnWatchlist(true);
-                alert("Dodano na watchlist!");
             } else {
                 alert("Greška pri dodavanju na server.");
             }
@@ -120,13 +119,13 @@ const SingleMovie = () => {
         }
     };
 
-    if (loading) return <div className="loading-screen">Učitavanje detalja...</div>;
-    if (!item) return <div className="error-screen">Podaci nisu pronađeni.</div>;
+    if (loading) return <div className="loading-screen">Loading details...</div>;
+    if (!item) return <div className="error-screen">Data not found.</div>;
 
     return (
         <div className="single-movie-container">
             <button className="back-btn" onClick={() => navigate(-1)}>
-                <FaArrowLeft /> Nazad
+                <FaArrowLeft /> Back
             </button>
 
             <div className="content-wrapper">
@@ -152,7 +151,7 @@ const SingleMovie = () => {
                     <p className="overview-text">{item.overview}</p>
 
                     <div className="button-group">
-                        <button className="play-button"><FaPlay /> Gledaj</button>
+                        
                         <button 
                             className={`watchlist-button ${isOnWatchlist ? 'on-list' : ''}`}
                             onClick={addToWatchlist}
