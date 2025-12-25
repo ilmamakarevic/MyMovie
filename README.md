@@ -1,52 +1,50 @@
-# MyMovie
+# 🎬 MyMovie
 
-## 1. Project Overview
-**MyMovie** is a web application made with .NET 8 (Clean Architecture) and React for frontend.
-The goal of the project is to collect and store movie data from the TMDB API in a SQL Server database.
+MyMovie is a full-stack web application for discovering, managing, and tracking movies and TV shows.  
+The application integrates with **The Movie Database (TMDB)** for movie and TV data and uses **Firebase Authentication** for user management.
 
-**Technologies:**
-- .NET 8
-- C#  
-- EF Core 
-- SQL Server (Docker)
-- TMDB API
-- Clean Architecture (API, Application, Infrastructure, Domain)
+The project is built as a learning and portfolio application, following **Clean Architecture principles** on the backend and a modern **React-based frontend**.
 
----
+## Features
 
-## 2. Architecture
-- MyMovie.API → Endpoints / Controllers
-- MyMovie.Application → DTOs / Interfaces / Services / 
-- MyMovie.Domain → Entities 
-- MyMovie.Infrastructure → Database access / Repositories / External API services
+- Browse popular, trending, and top-rated movies and TV shows
+- View detailed information (overview, rating, release date, etc.)
+- User authentication (Register / Login) via Firebase
+- Personal Watchlist (per authenticated user)
+- Backend API with clean separation of concerns
+- External API integration (TMDB)
+- SQL Server database for persistent data storage
 
-## 3. Database
-SQL Server is running on Docker
-DbContext: MoviesAppContext
-Connection: appsettings.json + Program.cs
+## Tech Stack
 
-### Migrations
-dotnet ef migrations add InitialCreate -p MyMovie.Infrastructure -s MyMovie.Api
-dotnet ef database update -p MyMovie.Infrastructure -s MyMovie.Api
+### Backend
+- **.NET 8**
+- **ASP.NET Core Web API**
+- **Entity Framework Core**
+- **SQL Server**
+- **Clean Architecture**
+  - MyMovie.Api
+  - MyMovie.Application
+  - MyMovie.Domain
+  - MyMovie.Infrastructure
 
-## How to Run
+### Frontend
+- **React**
+- **React Router**
+- **Firebase Authentication**
+- **Fetch / Axios for API calls**
 
-Prerequisites:
-- Docker (SQL Server)
-- .NET 8 SDK
-- TMDB API Key
+### External Services
+- **TMDB API** – movie & TV data
+- **Firebase** – authentication
 
-### How to get TMDB API Key
-- Go to TMDB Developers
-- Create an account
-- Go to: Settings → API → Create API Key
+##  Environment Configuration
+This project requires API keys for **TMDB** and **Firebase**.
 
-### Steps:
-Start SQL Server in Docker
-Configure appsettings.json connection string
+### TMDB
+Create an account at https://www.themoviedb.org/ and generate an API key.
 
-### Run migrations:
-dotnet ef database update -p MyMovie.Infrastructure -s MyMovie.Api
+### Firebase
+Create a Firebase project and enable **Email/Password Authentication**.
 
-### Run API:
-dotnet run --project MyMovie.Api
+
