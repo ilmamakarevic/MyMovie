@@ -49,13 +49,11 @@ This project requires API keys for TMDB and Firebase.
 1. Create an account at https://www.themoviedb.org/ and generate an API key.
 2. Navigate into server
 3. The base API settings are stored in the project's configuration file. Ensure your appsettings.json contains the following:
-   ```
-   {
+```{
   "TMDB": {
     "BaseUrl": "https://api.themoviedb.org/3/"
   }
-}
-```
+}```
 5. Open a terminal in the project's root directory and run: `dotnet user-secrets init`
 6. Add your Key: Run the following command (replace YOUR_API_KEY_HERE with your actual key):
    ```
