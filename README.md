@@ -54,6 +54,7 @@ This project requires API keys for TMDB and Firebase.
     "BaseUrl": "https://api.themoviedb.org/3/"
   }
 }
+```
 
 5. Open a terminal in the project's root directory and run: `dotnet user-secrets init`
 6. Add your Key: Run the following command (replace YOUR_API_KEY_HERE with your actual key):
@@ -72,15 +73,18 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 ### Install
 
 1. Open your Terminal window (Command Prompt, PowerShell, bash, zsh, etc.) and clone this repository to any location on your PC:
-```git clone https://github.com/ilmamakarevic/MyMovie.git
+```bash
+git clone https://github.com/ilmamakarevic/MyMovie.git
+```
 
 2. Navigate into client directory and install required dependencies:
 ```cd client
 npm install
-npm install react-icons
+npm install react-icons```
 
 3. Navigate to server and apply migrations to create the schema:
 ```database update --project MyMovie.Infrastructure --startup-project MyMovie.Api
+```
 
 ### Run the application:
 1. Before starting the API, your database must be running:
