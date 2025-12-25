@@ -57,9 +57,10 @@ This project requires API keys for TMDB and Firebase.
 ```
 
 5. Open a terminal in the project's root directory and run: `dotnet user-secrets init`
+   
 6. Add your Key: Run the following command (replace YOUR_API_KEY_HERE with your actual key):
-   ```dotnet user-secrets set "TMDB:ApiKey" "YOUR_API_KEY_HERE"
-
+```dotnet user-secrets set "TMDB:ApiKey" "YOUR_API_KEY_HERE"
+```
 ### Firebase
 1. Go to https://console.firebase.google.com/ and create a Firebase project and enable Email/Password Authentication.
 2. Create a file named .env in the root of your frontend directory. Add your Firebase credentials there:
@@ -69,6 +70,7 @@ REACT_APP_FIREBASE_PROJECT_ID=your_project_id
 REACT_APP_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 REACT_APP_FIREBASE_APP_ID=your_app_id
+```
 
 ### Install
 
@@ -83,28 +85,35 @@ npm install
 npm install react-icons```
 
 3. Navigate to server and apply migrations to create the schema:
-```database update --project MyMovie.Infrastructure --startup-project MyMovie.Api
+```
+database update --project MyMovie.Infrastructure --startup-project MyMovie.Api
 ```
 
 ### Run the application:
 1. Before starting the API, your database must be running:
    a) Using Docker - If you have Docker installed, run this command to start a SQL Server container:
-      ```docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password123!" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2022-latest
-      
+```
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password123!" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2022-latest
+```
    b) Local Installation - Ensure the SQL Server (MSSQLSERVER) service is running in your Windows Services.
 
-2. Navigate to server and Api folder and start the app:
-  ```cd server/MyMovie.Api
+3. Navigate to server and Api folder and start the app:
+```cd server/MyMovie.Api
     dotnet restore
     dotnet run
+```
   
 After this you should see that the application started on localhost:5081 and you can navigate to localhost:5081/swagger.
 
 3. Open new terminal and navigate to frontend folder:
-  ```cd client
+```
+cd client
+```
   
 4. Run the application
-  ```npm start
+```
+npm start
+```
   
 After this you should see that the application started on localhost:3000. 
 
