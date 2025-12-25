@@ -17,18 +17,36 @@ const MovieRow = ({ title, url }) => {
     }, [selectedMovie]);
 
     useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) return;
+        const fetchMovies = () => {
+            // novi XMLHttpRequest objekt (AJAX)
+            const xhr = new XMLHttpRequest();
+            
+            // GET metoda prema proslijeđenom URL-u
+            xhr.open("GET", url, true);
 
-                const text = await response.text();
-                const data = text ? JSON.parse(text) : [];
-                setMovies(data);
-            } catch (error) {
-                console.error("Greška u MovieRow fetch-u:", error);
-            }
+            //  šta se dešava kada stigne odgovor
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        setMovies(data);
+                    } catch (error) {
+                        console.error("Greška pri parsiranju JSON-a:", error);
+                    }
+                } else {
+                    console.error("Server je vratio grešku:", xhr.statusText);
+                }
+            };
+
+            // u slučaju mrežne greške
+            xhr.onerror = function () {
+                console.error("Mrežna greška pri AJAX pozivu.");
+            };
+
+            // Slanje zahtjeva
+            xhr.send();
         };
+
         fetchMovies();
     }, [url]);
 
@@ -164,7 +182,6 @@ const MovieRow = ({ title, url }) => {
                                 <p className="modal-overview">{selectedMovie.overview}</p>
                                 
                                 <div className='modal-buttons'>
-                                    <button className="play-button">Play</button>
                                     <button 
                                         className={`play-button add-to-watchlist ${isOnWatchlist ? 'on-watchlist' : ''}`}
                                         onClick={addToWatchlist}

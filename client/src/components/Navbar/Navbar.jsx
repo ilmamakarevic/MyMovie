@@ -118,7 +118,7 @@ const Navbar = () => {
           {showResults && (
             <div className='search-results'>
               {isSearching ? (
-                <div className='search-loading'>Pretraga...</div>
+                <div className='search-loading'>Searching...</div>
               ) : searchResults.length > 0 ? (
                 <>
                   {searchResults.map((item) => (

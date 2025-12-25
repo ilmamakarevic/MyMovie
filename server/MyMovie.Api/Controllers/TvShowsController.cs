@@ -16,9 +16,9 @@ namespace MyMovie.Api.Controllers
         }
 
         [HttpGet("popular")]
-        public async Task<ActionResult<List<ShowDto>>> GetPopular()
+        public async Task<ActionResult<List<ShowDto>>> GetPopular([FromQuery] int page = 1)
         {
-            var shows = await _tvShowService.GetPopularShowsAsync();
+            var shows = await _tvShowService.GetPopularShowsAsync(page);
             return Ok(shows);
         }
 
