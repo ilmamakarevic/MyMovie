@@ -21,10 +21,10 @@ const MovieRow = ({ title, url }) => {
             // novi XMLHttpRequest objekt (AJAX)
             const xhr = new XMLHttpRequest();
             
-            // GET metoda prema proslijeđenom URL-u
+            // GET metoda prema proslijedjenom URL-u
             xhr.open("GET", url, true);
 
-            //  šta se dešava kada stigne odgovor
+            //  
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     try {
@@ -38,7 +38,7 @@ const MovieRow = ({ title, url }) => {
                 }
             };
 
-            // u slučaju mrežne greške
+            // u slucaju mrezne greške
             xhr.onerror = function () {
                 console.error("Mrežna greška pri AJAX pozivu.");
             };
@@ -50,10 +50,10 @@ const MovieRow = ({ title, url }) => {
         fetchMovies();
     }, [url]);
 
-    // Provjeri da li je film/serija na watchlisti
+    // Provjeravanje da li je film/serija na watchlisti
     const checkWatchlistStatus = async (movie) => {
     const user = auth.currentUser;
-    if (!user) return; // Ako nitko nije prijavljen, ne provjeravaj ništa
+    if (!user) return; // Ako niko nije prijavljen, ne provjerava ništa
 
     try {
         const type = movie.title ? 'movie' : 'tv';
@@ -90,7 +90,7 @@ const MovieRow = ({ title, url }) => {
     const addToWatchlist = async () => {
     if (!selectedMovie) return;
 
-    // 1. Dohvati trenutno prijavljenog korisnika
+    // catch trenutno prijavljenog korisnika
     const user = auth.currentUser;
 
     if (!user) {
@@ -109,7 +109,7 @@ const MovieRow = ({ title, url }) => {
             },
             body: JSON.stringify({
                 tmdbId: tmdbId,
-                firebaseUserId: user.uid, // DODANO: Šaljemo UID korisnika
+                firebaseUserId: user.uid, // salje UID korisnika
                 title: selectedMovie.title || null,
                 name: selectedMovie.name || null,
                 posterPath: selectedMovie.posterPath,

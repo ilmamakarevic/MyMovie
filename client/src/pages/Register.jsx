@@ -17,7 +17,7 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
-        e.preventDefault(); // Zaustavlja osvježavanje stranice
+        e.preventDefault(); // Zaustavlja osvjezavanje stranice
         setError("");
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);

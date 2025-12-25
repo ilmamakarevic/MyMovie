@@ -25,7 +25,7 @@
 .register-container form {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Razmak između labela i inputa */
+    gap: 10px; 
 }
 
 .register-container input {

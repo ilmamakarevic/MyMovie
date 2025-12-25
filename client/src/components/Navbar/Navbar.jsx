@@ -12,7 +12,7 @@ const Navbar = () => {
   const searchRef = useRef(null);
   const navigate = useNavigate();
 
-  // Debounce za search - čeka 500ms nakon što korisnik prestane kucati
+  // ceka 500ms nakon što korisnik prestane kucati
   useEffect(() => {
     if (searchQuery.trim().length < 2) {
       setSearchResults([]);
@@ -50,7 +50,7 @@ const Navbar = () => {
       const movies = moviesResponse.ok ? await moviesResponse.json() : [];
       const tvShows = tvShowsResponse.ok ? await tvShowsResponse.json() : [];
 
-      // Kombiniraj rezultate i ograniči na prvih 8
+      // Kombinuje rezultate i ogranicava na prvih 8
       const combined = [
         ...movies.slice(0, 4).map(item => ({ ...item, type: 'movie' })),
         ...tvShows.slice(0, 4).map(item => ({ ...item, type: 'tv' }))

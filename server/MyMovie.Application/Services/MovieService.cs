@@ -94,7 +94,7 @@ namespace MyMovie.Application.Services
                 throw new ArgumentException("Movie title cannot be empty");
             }
 
-            // Ažuriranje
+            // Azuriranje
             var updatedEntity = await _repository.UpdateAsync(id, MapToEntity(movieDto));
             
             var saved = await _repository.SaveAsync();

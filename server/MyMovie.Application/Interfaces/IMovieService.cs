@@ -16,7 +16,6 @@ namespace MyMovie.Application.Interfaces
         Task<MovieDto> GetMovieFromTmdbAsync(int tmdbId);
         Task<MovieDto> ImportMovieFromTmdbAsync(int tmdbId);
         
-        // Dodatne operacije
         Task<int> GetMoviesCountAsync();
     }
 }

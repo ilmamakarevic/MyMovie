@@ -36,7 +36,7 @@ namespace MyMovie.Infrastructure.Repositories
                 entity.Property(e => e.ImportedAt)
                     .IsRequired(false); // nullable
 
-                // Kreiranje indexa za brže pretrage po TMDB ID-u
+                // index za brže pretrage po TMDB ID-u
                 entity.HasIndex(e => e.TmdbId)
                     .IsUnique(false);
             }
@@ -89,7 +89,7 @@ modelBuilder.Entity<WatchlistItemEntity>(entity =>
                 entity.Property(e => e.Rating)
                     .IsRequired(false);
 
-                // Index za brže pretrage i sprečavanje duplikata
+                // Index za brze pretrage i sprijcavanje duplikata
                 entity.HasIndex(e => new { e.TmdbId, e.Type, e.FirebaseUserId })
                     .IsUnique();
             });

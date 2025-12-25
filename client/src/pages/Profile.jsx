@@ -10,7 +10,7 @@ const Profile = () => {
     const handleLogout = async () => {
         try {
             await auth.signOut();
-            navigate('/login'); // Preusmjeri na login nakon odjave
+            navigate('/login'); // Preusmjerava na login nakon odjave
         } catch (error) {
             console.error("Greška pri odjavi:", error);
         }
@@ -19,8 +19,8 @@ const Profile = () => {
     if (!user) {
         return (
             <div className="profile-container">
-                <h2>Niste prijavljeni.</h2>
-                <button onClick={() => navigate('/login')}>Idi na Login</button>
+                <h2>You are logged out.</h2>
+                <button onClick={() => navigate('/login')}>Go to Login</button>
             </div>
         );
     }
@@ -30,7 +30,7 @@ const Profile = () => {
             <h1>My Profile</h1>
             <div className="profile-card">
                 <div className="profile-image">
-                    {/* Generira inicijal korisnika ako nema sliku */}
+                    {/* generira inicijal korisnika ako nema sliku */}
                     {user.email ? user.email[0].toUpperCase() : 'U'}
                 </div>
                 <div className="profile-info">

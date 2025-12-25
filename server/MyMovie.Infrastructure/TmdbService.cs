@@ -87,7 +87,7 @@ public class TmdbService : IMovieExternalService
         return response.Results.Select(MapToShowDto).ToList();
     }
 
-    // Pomoćna metoda za mapiranje unutar TmdbService
+    // helper metoda za mapiranje unutar TmdbService
     private MovieDto MapToDto(TmdbItem item) => new MovieDto
     {
         Id = item.Id,

@@ -16,7 +16,7 @@ const SingleMovie = () => {
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                // Uzimamo token jer je MoviesController/TvShowsController sada možda zaključan
+                // Uzimam token jer su controlleri sada mozda zakljucani
                 const user = auth.currentUser;
                 const token = user ? await user.getIdToken() : null;
 
@@ -78,7 +78,7 @@ const SingleMovie = () => {
     };
 
     const addToWatchlist = async () => {
-        // OBAVEZNO ostavi ovo - provjera ulogovanog korisnika
+        // provjera ulogovanog korisnika
         const user = auth.currentUser;
         if (!user) {
             alert("Morate biti prijavljeni!");
@@ -104,7 +104,7 @@ const SingleMovie = () => {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Slanje tokena backendu
+                    'Authorization': `Bearer ${token}` //salje token backendu
                 },
                 body: JSON.stringify(watchlistItem),
             });

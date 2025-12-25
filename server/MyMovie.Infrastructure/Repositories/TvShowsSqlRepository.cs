@@ -44,7 +44,7 @@ namespace MyMovie.Infrastructure.Repositories
 
         public async Task<bool> SaveAsync()
         {
-            // Vraća true ako je barem jedan red u bazi promijenjen
+            // vraca true ako je barem jedan red u bazi promijenjen
             return await _moviesDbContext.SaveChangesAsync() > 0;
         }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from "../firebase";
-import { FaTimes } from 'react-icons/fa'; // Dodaj import za ikonu
+import { FaTimes } from 'react-icons/fa'; 
 import './BrowseAll.css';
 
 const BrowseAll = ({ type }) => {
@@ -8,7 +8,7 @@ const BrowseAll = ({ type }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     
-    // State za modal (kao u MovieRow)
+    // State za modal 
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [isOnWatchlist, setIsOnWatchlist] = useState(false);
 
@@ -16,7 +16,7 @@ const BrowseAll = ({ type }) => {
         ? `http://localhost:5081/api/Movies/popular?page=${page}` 
         : `http://localhost:5081/api/TvShows/popular?page=${page}`;
 
-    // Resetiraj stranicu na 1 ako se promijeni tip (Movies -> TV Shows)
+    // Resetira stranicu na 1 ako se promijeni type (Movies - TV Shows)
     useEffect(() => {
         setPage(1);
     }, [type]);
@@ -27,9 +27,9 @@ const BrowseAll = ({ type }) => {
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
-                // Postavljamo nove rezultate (mijenjamo stare)
+                // Postavlja nove rezyltate
                 setItems(data);
-                // Skrolaj na vrh stranice kad se učitaju novi podaci
+                // Skrola na vrh stranice kad se ucitaju novi podaci
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error("Greška pri dohvaćanju:", error);
@@ -38,9 +38,9 @@ const BrowseAll = ({ type }) => {
             }
         };
         fetchData();
-    }, [type, page]); // Ovisnosti: type i page
+    }, [type, page]); 
 
-    // Funkcije za Watchlist (Kopirano iz MovieRow.jsx)
+    // Funkcije za Watchlist, kopirano iz MovieRow
     const checkWatchlistStatus = async (item) => {
         const user = auth.currentUser;
         if (!user) return;
@@ -127,7 +127,7 @@ const BrowseAll = ({ type }) => {
                 <button onClick={() => setPage(p => p + 1)}>Next</button>
             </div>
 
-            {/* MODAL POPUP (Ista logika kao u MovieRow.jsx) */}
+            {/* Modal popup, same as for movierow */}
             {selectedMovie && (
                 <div className="modal-overlay" onClick={() => setSelectedMovie(null)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>

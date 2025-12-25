@@ -15,9 +15,7 @@ namespace MyMovie.Api.Controllers
             _watchlistService = watchlistService;
         }
 
-        /// <summary>
-        /// Dohvati sve stavke s watchliste
-        /// </summary>
+        /// Dohvati sve sa watchlist
         [HttpGet]
         public async Task<ActionResult<List<WatchlistItemDto>>> GetWatchlist([FromQuery] string userId)
         {
@@ -29,9 +27,7 @@ namespace MyMovie.Api.Controllers
             return Ok(items);
         }
 
-        /// <summary>
         /// Dodaj film/seriju na watchlist
-        /// </summary>
         [HttpPost]
         public async Task<ActionResult<WatchlistItemDto>> AddToWatchlist([FromBody] AddToWatchlistDto dto)
         {
@@ -47,10 +43,7 @@ namespace MyMovie.Api.Controllers
         }
 
         
-
-        /// <summary>
         /// Ukloni stavku s watchliste
-        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveFromWatchlist(int id)
         {
@@ -62,9 +55,7 @@ namespace MyMovie.Api.Controllers
             return NoContent();
         }
 
-        /// <summary>
         /// Provjeri da li je film/serija na watchlisti
-        /// </summary>
         [HttpGet("check/{tmdbId}")]
         public async Task<ActionResult<bool>> IsOnWatchlist(int tmdbId, [FromQuery] string type, [FromQuery] string userId)
         {

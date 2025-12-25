@@ -21,10 +21,7 @@ namespace MyMovie.Api.Controllers
             _httpClient = httpClientFactory.CreateClient();
         }
 
-        /// <summary>
-        /// Get all movies from database
-        /// </summary>
-        /// 
+        // Get all movies from database
 
         [HttpGet]
         [ProducesResponseType(typeof(List<MovieDto>), StatusCodes.Status200OK)]
@@ -34,9 +31,7 @@ namespace MyMovie.Api.Controllers
             return Ok(movies);
         }
 
-        /// <summary>
-        /// Get movie by ID
-        /// </summary>
+        // Get movie by ID
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(MovieDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -50,9 +45,7 @@ namespace MyMovie.Api.Controllers
             return Ok(movie);
         }
 
-        /// <summary>
         /// Create a new movie manually
-        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(MovieDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,9 +62,7 @@ namespace MyMovie.Api.Controllers
             }
         }
 
-        /// <summary>
         /// Update existing movie
-        /// </summary>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(MovieDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,9 +83,7 @@ namespace MyMovie.Api.Controllers
             }
         }
 
-        /// <summary>
         /// Delete movie by ID
-        /// </summary>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -108,9 +97,7 @@ namespace MyMovie.Api.Controllers
             return NoContent();
         }
 
-        /// <summary>
         /// Search movies on TMDB
-        /// </summary>
         [HttpGet("search")]
         [ProducesResponseType(typeof(List<MovieDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<MovieDto>>> SearchMovies([FromQuery] string query)
@@ -122,9 +109,7 @@ namespace MyMovie.Api.Controllers
             return Ok(movies);
         }
 
-        /// <summary>
         /// Get popular movies from TMDB
-        /// </summary>
         [HttpGet("popular")]
         [ProducesResponseType(typeof(List<MovieDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<MovieDto>>> GetPopularMovies([FromQuery] int page = 1)
@@ -133,9 +118,7 @@ namespace MyMovie.Api.Controllers
             return Ok(movies);
         }
         
-        /// <summary>
-        /// Get movie details from TMDB (without saving)
-        /// </summary>
+        /// Get movie details from TMDB 
         [HttpGet("tmdb/{tmdbId}")]
         [ProducesResponseType(typeof(MovieDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -152,9 +135,7 @@ namespace MyMovie.Api.Controllers
             }
         }
 
-        /// <summary>
         /// Get total count of movies in database
-        /// </summary>
         [HttpGet("count")]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public async Task<ActionResult<int>> GetMoviesCount()

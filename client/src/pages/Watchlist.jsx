@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { auth } from "../firebase"; // Putanja do tvog firebase.js
+import { auth } from "../firebase"; 
 import './Watchlist.css';
 
 const Watchlist = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [itemToDelete, setItemToDelete] = useState(null); // Pamti koji film brišemo
-    const [showModal, setShowModal] = useState(false);      // Kontroliše da li se popup vidi
+    const [itemToDelete, setItemToDelete] = useState(null); // Pamti koji film korisnik brise
+    const [showModal, setShowModal] = useState(false);      // kontrolise da li se popup vidi
+
 
     useEffect(() => {
-        // Pratimo promjenu stanja prijave da bismo znali UID korisnika
+        // Prati promjenu stanja prijave
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
-                fetchWatchlist(user.uid); // Šaljemo UID funkciji
+                fetchWatchlist(user.uid); // salje UID funkciji
             } else {
                 setLoading(false);
             }
@@ -24,7 +25,6 @@ const Watchlist = () => {
     const fetchWatchlist = async (userId) => {
         try {
             setLoading(true);
-            // DODALI SMO userId u URL (ovo je ključno za tvoj backend)
             const response = await fetch(`http://localhost:5081/api/Watchlist?userId=${userId}`);
             
             if (response.status === 204) {
@@ -63,8 +63,8 @@ const Watchlist = () => {
 
     if (loading) return <div className="watchlist-page"><h1>Loading...</h1></div>;
 
-    // Ako korisnik uopće nije logiran
-    if (!auth.currentUser) return <div className="watchlist-page"><h1>Molimo prijavite se.</h1></div>;
+    // Ako korisnik nije prijavljen
+    if (!auth.currentUser) return <div className="watchlist-page"><h1>Please sign in.</h1></div>;
 
     return (
         <div className="watchlist-page">

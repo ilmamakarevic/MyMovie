@@ -55,7 +55,7 @@ namespace MyMovie.Application.Services
         {
             _logger.LogInformation("Započinjem uvoz serije sa TMDB ID: {TmdbId}", tmdbId);
 
-            // 1. Povlačenje podataka sa TMDB
+            // 1. Povlacenje podataka sa TMDB
             var showsFromTmdb = await _tmdbService.GetPopularTvShowsAsync(1);
             var showDto = showsFromTmdb.FirstOrDefault(s => s.Id == tmdbId);
 
@@ -83,7 +83,7 @@ namespace MyMovie.Application.Services
 
             _logger.LogInformation("Serija '{Name}' uspješno uvezena sa lokalnim ID-em: {Id}", entity.Name, entity.Id);
 
-            showDto.Id = entity.Id; // Postavljamo lokalni ID baze u DTO
+            showDto.Id = entity.Id; // lokalni ID baze u DTO
             return showDto;
         }
 
@@ -93,7 +93,7 @@ namespace MyMovie.Application.Services
             
             if (string.IsNullOrWhiteSpace(query))
             {
-                // Bolje je vratiti praznu listu nego bacati Exception za prazan input
+                // vraca praznu listu umjest exceptiona za prazan input
                 return new List<ShowDto>(); 
             }
 

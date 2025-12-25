@@ -19,7 +19,7 @@ function LayoutWrapper() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Provjera rute - da li je korisnik na login ili register?
+  //  da li je korisnik na login ili registered?
   const isAuthPage = location.pathname === '/register' || location.pathname === '/login';
 
   useEffect(() => {
@@ -35,13 +35,12 @@ function LayoutWrapper() {
     return <div className="loading">Loading...</div>;
   }
 
-  // LOGIKA ZAŠTITE:
-  // 1. Ako NEMA korisnika, a NIJE na login/register stranici -> šalji na /login
+  // ako nema korisnika, a nijena login/register stranici 
   if (!user && !isAuthPage) {
     return <Navigate to="/login" replace />;
   }
 
-  // 2. Ako JE korisnik ulogovan, a pokuša otići na /login ili /register -> šalji na Dashboard
+  // ako jw korisnik ulogovan, a pokuša otići na /login ili /register 
   if (user && isAuthPage) {
     return <Navigate to="/dashboard" replace />;
   }
@@ -53,7 +52,6 @@ function LayoutWrapper() {
       
       <main className="content">
         <Routes>
-          {/* Početna ruta "/" - ako si tu, baci te na Dashboard (koji je zaštićen gore) */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           
           <Route path="/dashboard" element={<Dashboard />} />
@@ -67,7 +65,7 @@ function LayoutWrapper() {
           <Route path="/register" element={<Register />} /> 
           <Route path="/login" element={<Login />} />  
 
-          {/* Fallback: ako korisnik upiše bilo šta glupo u URL, vrati ga na početnu */}
+          {/* ako korisnik upiše bilo šta drugo u url, vrati ga na početnu */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
