@@ -59,7 +59,8 @@ This project requires API keys for TMDB and Firebase.
 5. Open a terminal in the project's root directory and run: `dotnet user-secrets init`
    
 6. Add your Key: Run the following command (replace YOUR_API_KEY_HERE with your actual key):
-```dotnet user-secrets set "TMDB:ApiKey" "YOUR_API_KEY_HERE"
+```
+dotnet user-secrets set "TMDB:ApiKey" "YOUR_API_KEY_HERE"
 ```
 ### Firebase
 1. Go to https://console.firebase.google.com/ and create a Firebase project and enable Email/Password Authentication.
@@ -75,14 +76,16 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 ### Install
 
 1. Open your Terminal window (Command Prompt, PowerShell, bash, zsh, etc.) and clone this repository to any location on your PC:
-```bash
+```
 git clone https://github.com/ilmamakarevic/MyMovie.git
 ```
 
 2. Navigate into client directory and install required dependencies:
-```cd client
+```
+cd client
 npm install
-npm install react-icons```
+npm install react-icons
+```
 
 3. Navigate to server and apply migrations to create the schema:
 ```
@@ -98,9 +101,10 @@ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password123!" -p 1433:1433 -
    b) Local Installation - Ensure the SQL Server (MSSQLSERVER) service is running in your Windows Services.
 
 3. Navigate to server and Api folder and start the app:
-```cd server/MyMovie.Api
-    dotnet restore
-    dotnet run
+```
+cd server/MyMovie.Api
+dotnet restore
+dotnet run
 ```
   
 After this you should see that the application started on localhost:5081 and you can navigate to localhost:5081/swagger.
