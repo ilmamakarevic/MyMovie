@@ -90,24 +90,12 @@ const Navbar = () => {
         </li>
 
         {/* MOVIES */}
-        <li className='navbar-item'>
-          <button type="button">Movies</button>
-          <ul className="sub-menu">
-            <li><Link to="/movies/top-rated">Top rated</Link></li>
-            <li><Link to="/movies/upcoming">Coming soon</Link></li>
-          </ul>
-        </li>
+        <li className='navbar-item'><NavLink to="/all-movies">Movies</NavLink></li>
 
         {/* TV SHOWS */}
-        <li className='navbar-item'>
-          <button type="button">TV Shows</button>
-          <ul className="sub-menu">
-            <li><Link to="/tv/top-rated">Top rated</Link></li>
-            <li><Link to="/tv/upcoming">Coming soon</Link></li>
-          </ul>
-        </li>
+        <li className='navbar-item'><NavLink to="/all-tvshows">Tv Shows</NavLink></li>
 
-        <li className='navbar-item'><Link to="/MyWatchlist">My watchlist</Link></li>
+        <li className='navbar-item'><NavLink to="/myWatchlist">My watchlist</NavLink></li>
       </ul>
 
       <div className='navbar-right'>

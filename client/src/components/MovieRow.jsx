@@ -170,7 +170,7 @@ const MovieRow = ({ title, url }) => {
                                         onClick={addToWatchlist}
                                         disabled={isOnWatchlist}
                                     >
-                                        {isOnWatchlist ? '✓ Na watchlisti' : '+ Dodaj na watchlist'}
+                                        {isOnWatchlist ? '✓ Added to watchlist' : '+ Add to watchlist'}
                                     </button>
                                 </div>
                             </div>

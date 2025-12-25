@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # 1. Baza podataka
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mymovie-sql-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password123!
+    ports:
+      - "1434:1433"
+
+  # 2. Backend (Server)
+  backend:
+    build:
+      context: ./server       
+      dockerfile: MyMovie.Api/Dockerfile
+    container_name: mymovie-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=MoviesAppDB;User Id=sa;Password=Password123!;TrustServerCertificate=True
+    ports:
+      - "5081:8080"
+    depends_on:
+      - db
+
+  # 3. Frontend (Client)
+  frontend:
+    build:
+      context: ./client 
+    container_name: mymovie-frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend

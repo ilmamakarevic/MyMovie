@@ -1,0 +1,97 @@
+.browse-container {
+    padding: 80px 4% 40px; /* 80px gore zbog navbara */
+    background-color: #141414;
+    min-height: 100vh;
+    color: white;
+}
+
+.browse-container h1 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Rešetka za filmove */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+/* Kartica filma */
+.movie-card-simple {
+    position: relative;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-card-simple:hover {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.movie-card-simple img {
+    width: 100%;
+    border-radius: 4px;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card-simple p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Paginacija */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+
+.pagination button {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #b20710;
+}
+
+.pagination button:disabled {
+    background-color: #333;
+    cursor: not-allowed;
+    color: #777;
+}
+
+.pagination span {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Responzivnost za mobitele */
+@media (max-width: 600px) {
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+    }
+    
+    .browse-container h1 {
+        font-size: 1.5rem;
+    }
+}

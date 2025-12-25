@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { useState, useEffect } from 'react';
 import { auth } from './firebase';
@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SingleMovie from './pages/SingleMovie';
+import BrowseAll from './components/BrowseAll';
 
 // App.js - Zamijeni LayoutWrapper funkciju ovim:
 
@@ -28,7 +29,7 @@ function LayoutWrapper() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <div className="loading">Učitavanje...</div>;
+  if (loading) return <div className="loading">Loading...</div>;
 
   // GLAVNA PROMJENA: Ako korisnik nije ulogovan i nije na login/register, šalji ga na login
   if (!user && !isAuthPage) {
@@ -42,16 +43,16 @@ function LayoutWrapper() {
         <Routes>
           {/* Početna ruta sada direktno vodi na Dashboard ako je user tu */}
           <Route path="/" element={<Dashboard />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/MyWatchlist" element={<Watchlist />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/myWatchlist" element={<Watchlist />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/details/:type/:id" element={<SingleMovie />} />
+          <Route path="/all-movies" element={<BrowseAll type="movie" />} />
+          <Route path="/all-tvshows" element={<BrowseAll type="tv" />} />
           
           <Route path="/register" element={<Register />} /> 
           <Route path="/login" element={<Login />} />  
           
-          {/* Ako korisnik ukuca nepostojeću rutu */}
-          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}

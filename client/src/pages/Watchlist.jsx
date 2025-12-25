@@ -61,7 +61,7 @@ const Watchlist = () => {
         }
     };
 
-    if (loading) return <div className="watchlist-page"><h1>Učitavanje...</h1></div>;
+    if (loading) return <div className="watchlist-page"><h1>Loading...</h1></div>;
 
     // Ako korisnik uopće nije logiran
     if (!auth.currentUser) return <div className="watchlist-page"><h1>Molimo prijavite se.</h1></div>;
