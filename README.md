@@ -94,6 +94,7 @@ database update --project MyMovie.Infrastructure --startup-project MyMovie.Api
 
 ### Run the application:
 1. Before starting the API, your database must be running:
+
    a) Using Docker - If you have Docker installed, run this command to start a SQL Server container:
 ```
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password123!" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2022-latest
