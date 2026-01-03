@@ -89,7 +89,7 @@ npm install react-icons
 
 3. Navigate to server and apply migrations to create the schema:
 ```
-database update --project MyMovie.Infrastructure --startup-project MyMovie.Api
+dotnet ef database update --project MyMovie.Infrastructure --startup-project MyMovie.Api
 ```
 
 ### Run the application:
